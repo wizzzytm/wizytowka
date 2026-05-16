@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master] # Uruchomi się po każdym pushu na branch main lub master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Trik zamieniający nazwę użytkownika na małe litery (wymóg rejestru kontenerów)
+      - name: Set lower case owner name
+        run: |
+          echo "IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/wizytowka:latest" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE_TAG }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      # Ponownie ustawiamy tag obrazu w drugim zadaniu
+      - name: Set lower case owner name
+        run: |
+          echo "IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/wizytowka:latest" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
+
+      - name: Deploy to AWS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # Logowanie do rejestru z poziomu serwera AWS
+            sudo docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+            # Zatrzymanie starego kontenera (jeśli istnieje)
+            sudo docker stop wizytowka || true
+            sudo docker rm wizytowka || true
+
+            # Pobranie najnowszego obrazu z GitHuba
+            sudo docker pull ${{ env.IMAGE_TAG }}
+
+            # Uruchomienie nowej wersji aplikacji na porcie 80
+            sudo docker run -d --name wizytowka -p 80:80 ${{ env.IMAGE_TAG }}

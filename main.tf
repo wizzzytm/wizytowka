@@ -6,7 +6,7 @@ resource "aws_instance" "moj_serwer" {
     ami = "ami-0e872aee57663ae2d"
     instance_type = "t3.micro"
     vpc_security_group_ids = [aws_security_group.zapora_wizytowki.id]
-
+    key_name = "klucz-wizytowki"
     user_data = <<-EOF
                 #!/bin/bash
                 apt update
@@ -14,6 +14,7 @@ resource "aws_instance" "moj_serwer" {
                 systemctl start docker
                 systemctl enable docker
                 EOF
+                
 }
 
 resource "aws_security_group" "zapora_wizytowki" {
