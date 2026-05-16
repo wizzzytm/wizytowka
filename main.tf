@@ -1,9 +1,22 @@
-provider "aws"{
+provider "aws" {
     region = "eu-central-1"
 }
 
+data "aws_ami" "ubuntu" {
+    most_recent = true
+    owners = ["099720109477"]
+    filter {
+        name = "name"
+        values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    }
+    filter {
+        name = "virtualization-type"
+        values = ["hvm"]
+    }
+}
+
 resource "aws_instance" "moj_serwer" {
-    ami = "ami-0e872aee57663ae2d"
+    ami = data.aws_ami.ubuntu.id
     instance_type = "t3.micro"
     vpc_security_group_ids = [aws_security_group.zapora_wizytowki.id]
     key_name = "klucz-wizytowki"
