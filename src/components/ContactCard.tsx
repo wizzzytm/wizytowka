@@ -17,8 +17,14 @@ export function ContactCard() {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
 
-  const email = "twoj.email@gmail.com";
-  const phone = "+48 123 456 789";
+  const emailUser = "adrian.kolek2007";
+  const emailDomain = "gmail.com";
+  const email = `${emailUser}@${emailDomain}`;
+  const phone1 = "+48";
+  const phone2 = "733";
+  const phone3 = "129";
+  const phone4 = "686";
+  const phone = `${phone1} ${phone2} ${phone3} ${phone4}`;
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -43,15 +49,13 @@ export function ContactCard() {
           <div className="space-y-4 w-full lg:w-auto">
             <div className="space-y-1">
               <h2 className="text-2xl font-bold tracking-tight">
-                Szukasz stażysty DevOps / Dev?
+                Bądźmy w kontakcie
               </h2>
               <p className="text-sm text-muted-foreground">
-                Zatrudniając mnie, zyskujesz zmotywowanego technika ze statusem
-                ucznia. Porozmawiajmy!
+                Zawsze chętnie angażuję się w ciekawe inicjatywy i rozwijam nowe
+                umiejętności. Skontaktuj się ze mną, a na pewno odpowiem.
               </p>
             </div>
-
-            {/* Dane kontaktowe */}
             <div className="flex flex-wrap gap-3 text-xs font-mono text-muted-foreground">
               <div
                 onClick={handleCopyEmail}
@@ -103,7 +107,7 @@ export function ContactCard() {
               asChild
               className="font-semibold gap-2 h-11 px-6 rounded-xl shadow-sm cursor-pointer w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200"
             >
-              <a href="/cv.pdf" download="CV_Twoje_Imie.pdf">
+              <a href="/CV_Adrian_Kolek.pdf" download="CV_Adrian_Kolek.pdf">
                 <FileDown className="h-4 w-4" />
                 <span>Pobierz CV (PDF)</span>
               </a>

@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Globe } from "lucide-react";
 import { BentoCard } from "./BentoCard";
 
-// Dane o językach z kodami flag dla flagcdn.com
 const languages = [
   { name: "Polski", level: "Ojczysty", score: 5, flagCode: "pl" },
   { name: "Angielski", level: "C1 (Zaawansowany)", score: 4, flagCode: "gb" },

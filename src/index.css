@@ -132,3 +132,56 @@
     @apply font-sans;
   }
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--border) 80%, var(--foreground) 20%);
+}
+
+/* --- Konfiguracja siatki kropek (Wklej na sam dół index.css) --- */
+
+:root {
+  /* Jasny tryb: 45% widoczności (wyraźne, techniczne kropki) */
+  --dot-color: color-mix(in srgb, var(--foreground) 45%, transparent);
+}
+
+.dark {
+  /* Ciemny tryb: 15% widoczności (subtelne, nieoślepiające kropki) */
+  --dot-color: color-mix(in srgb, var(--foreground) 15%, transparent);
+}
+
+body {
+  background-color: var(--background);
+  background-image: radial-gradient(
+    circle,
+    var(--dot-color) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 24px 24px;
+  background-attachment: fixed;
+}
+
+.bento-card-glow {
+  position: relative;
+  transition:
+    box-shadow 0.3s ease-in-out,
+    transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bento-card-glow:hover {
+  box-shadow: 0 0 40px -10px
+    color-mix(in srgb, var(--foreground) 15%, transparent);
+  transform: translateY(-2px);
+}

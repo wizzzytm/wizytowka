@@ -24,16 +24,16 @@ export function HeroCard() {
             <User size={24} />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            Cześć, jestem <span className="text-primary">Twoje Imię</span>
+            Cześć, jestem <span className="text-primary">Adrian</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-xl leading-relaxed mt-2">
-            Zafascynowany technologią Frontend Developer, który zamienia kawę w
-            responsywne i dostępne interfejsy.
+          <p className="text-base text-muted-foreground max-w-xl leading-relaxed mt-2">
+            Pracowity i odpowiedzialny absolwent technikum. Dzięki odbytym
+            praktykom zawodowym potrafię sprawnie pracować w zespole i rzetelnie
+            realizować powierzone zadania pod presją czasu. Cechuje mnie wysoka
+            kultura osobista, komunikatywność oraz zmysł techniczny, który
+            pozwala mi na szybkie opanowanie obsługi nowych urządzeń i
+            programów.
           </p>
-        </div>
-
-        <div className="mt-8 flex gap-3 italic text-sm text-muted-foreground/60 font-mono">
-          #tech_enthusiast #problem_solver #web_architect
         </div>
       </Card>
     </motion.div>
