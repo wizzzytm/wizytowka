@@ -63,15 +63,17 @@ jobs:
 
             # Uruchomienie aplikacji na porcie 80
             sudo docker run -d --name wizytowka -p 80:80 ${{ env.IMAGE_TAG }}
+
       - name: Powiadomienie na discord
         if: success()
         run: |
           curl -H  "Content-Type: application/json" \
-          -d '{"content": "Wdrożenie zakończono sukcesem! **Nowa wersja aplikacji działa na AWS."}' \
+          -d '{"content": "Wdrożenie zakończono sukcesem! **Nowa wersja aplikacji działa na AWS.**"}' \
           ${{ secrets.DC_WEBHOOK }}
-      - name: Powiadomienie na discord
+
+      - name: Powiadomienie na discord (Błąd)
         if: failure()
         run: |
           curl -H  "Content-Type: application/json" \
-          -d '{"content": "**BŁĄD WDROŻENIA AWS! Coś poszło nie tak, proszę sprawdzić logi w GitHub Actions."}' \
+          -d '{"content": "**BŁĄD WDROŻENIA AWS!** Coś poszło nie tak, proszę sprawdzić logi w GitHub Actions."}' \
           ${{ secrets.DC_WEBHOOK }}
