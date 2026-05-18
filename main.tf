@@ -1,5 +1,5 @@
 provider "aws" {
-    region = "eu-central-1"
+    region = var.aws_region
 }
 
 data "aws_ami" "ubuntu" {
@@ -17,9 +17,9 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "moj_serwer" {
     ami = data.aws_ami.ubuntu.id
-    instance_type = "t3.micro"
+    instance_type = var.ec2_instance_type
     vpc_security_group_ids = [aws_security_group.zapora_wizytowki.id]
-    key_name = "klucz-wizytowki"
+    key_name = var.key_name
     user_data = <<-EOF
                 #!/bin/bash
                 apt update
