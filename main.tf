@@ -2,6 +2,14 @@ provider "aws" {
     region = var.aws_region
 }
 
+terraform {
+  backend "s3" {
+    bucket = "terraform-stan-wizytowka-kolek"
+    key = "wizytowka/terraform.tfstate"
+    region = "eu-central-1"
+  }
+}
+
 data "aws_ami" "ubuntu" {
     most_recent = true
     owners = ["099720109477"]
