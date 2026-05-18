@@ -29,7 +29,7 @@ jobs:
         run: |
           NEW_IP=$(terraform output -raw instance_ip)
           echo "Nowy adres IP to: $NEW_IP"
-          curl "https://www.duckdns.org/update?domains=${{env.TF_VAR_duckdns_domain}}&token=${{env.TF_VAR_duckdns_token}}&ip=$NEW_IP""
+          curl "https://www.duckdns.org/update?domains=${{env.TF_VAR_duckdns_domain}}&token=${{env.TF_VAR_duckdns_token}}&ip=$NEW_IP"
 
       - name: Powiadomienie na discord
         if: success()
