@@ -35,7 +35,10 @@ resource "aws_instance" "moj_serwer" {
                 systemctl start docker
                 systemctl enable docker
                 EOF
-                
+    tags = {
+        Name        = "Serwer-Wizytowka-Produkcja"
+        Zarzadzanie = "Terraform-GitOps"
+    }                
 }
 
 resource "aws_security_group" "zapora_wizytowki" {
