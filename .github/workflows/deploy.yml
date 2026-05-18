@@ -47,7 +47,7 @@ jobs:
       - name: Deploy to AWS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HOST }}
+          host: "wizytowka-kolek.duckdns.org"
           username: ubuntu
           key: ${{ secrets.SSH_KEY }}
           script: |
