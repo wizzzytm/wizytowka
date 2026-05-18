@@ -65,3 +65,4 @@ resource "aws_security_group" "zapora_wizytowki" {
     }
 
 }
+
